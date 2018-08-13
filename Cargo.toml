@@ -1,6 +1,7 @@
 [package]
-name = "fix2float"
+name = "streamconv"
 version = "0.1.0"
 authors = ["Jay Kickliter <jay@kickliter.com>"]
 
 [dependencies]
+structopt = "0.2.10"
