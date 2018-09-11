@@ -53,8 +53,14 @@ where
             };
             obuf.push(scaled.into());
         }
-        dst.write_all(as_bytes(obuf.as_slice()))
-            .expect("Could not write to stdout");
+        match dst.write_all(as_bytes(obuf.as_slice())) {
+            Ok(_) => (),
+            Err(ref e) if e.kind() == io::ErrorKind::BrokenPipe => std::process::exit(0),
+            Err(e) => {
+                eprintln!("{}", e);
+                std::process::exit(1);
+            }
+        }
     }
 }
 
